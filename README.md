@@ -1,0 +1,24 @@
+BD1 Todo App
+============
+
+Aplicación de muestra para probar el desarrollo de aplicaciones por medio de Apache Maven y Java.
+
+
+## Opciones
+```bash
+mvn clean compile
+# se borra el directorio target/ y se compila el código de producción
+
+mvn clean test
+# se borra el directorio target/ y se compila el código de producción, se compila el código de pruebas y se ejecutan las pruebas.
+
+mvn clean package
+# se borra el directorio target/ y se compila el código de producción, se compila el código de pruebas, se ejecutan las pruebas, se construye el .jar.
+
+mvn clean install
+# se borra el directorio target/ y se compila el código de producción, se compila el código de pruebas, se ejecutan las pruebas, se construye el .jar y se instala en el repositorio local de Maven (.m2/repository).
+
+mvn clean install -Dmaven.test.skip=true
+# En este se ignoran los pasos relacionados de las pruebas. 
+```
+
