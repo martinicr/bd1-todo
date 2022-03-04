@@ -1,26 +1,42 @@
 package tec.bd.todo;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import tec.bd.todo.repository.TodoRepository;
+
 import java.util.List;
-import java.util.UUID;
 
 public class Todo {
 
-    private List<TodoRecord> todoRepository;
+    private TodoRepository todoRepository;
 
-    public Todo() {
-        this.todoRepository = new ArrayList<>();
+    public Todo(TodoRepository todoRepo) {
+        this.todoRepository = todoRepo;
     }
 
     public List<TodoRecord> getAll() {
-        return this.todoRepository;
+        return this.todoRepository.findAll();
+    }
+
+    public List<TodoRecord> getAll(Status status) {
+        return this.todoRepository.findAll(status);
+    }
+
+    public TodoRecord getById(String id) {
+        // TODO: validar que el id no sea nulo y si es nulo lanzar una excepcion
+        return this.todoRepository.findById(id);
     }
 
     public TodoRecord add(TodoRecord record) {
-        record.setId(UUID.randomUUID().toString());
-        this.todoRepository.add(record);
-        return record;
+        // TODO: validar si el TodoRecord es valido
+        return this.todoRepository.save(record);
+    }
+
+    public void delete(TodoRecord record) {
+//        var elementToDelete = this.getById(record.getId());
+//        if (null != elementToDelete) {
+//            this.todoRepository.remove(elementToDelete);
+//        }
+        // TODO: buscar si el record existe, y si existe borrarlo
+        this.todoRepository.remove(record);
     }
 
 }
