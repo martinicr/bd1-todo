@@ -1,6 +1,8 @@
 BD1 Todo App
 ============
 
+[![Java CI with Maven](https://github.com/martinicr/bd1-todo/actions/workflows/maven.yml/badge.svg?branch=dev)](https://github.com/martinicr/bd1-todo/actions/workflows/maven.yml)
+
 Aplicación de muestra para probar el desarrollo de aplicaciones por medio de Apache Maven y Java.
 
 
