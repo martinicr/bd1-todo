@@ -29,7 +29,7 @@
 
     <dependency>
       <groupId>tec.bd</groupId>
-      <artifactId>bd1-todo</artifactId>
+      <artifactId>bd1-todo-core</artifactId>
       <version>${bd1-todo.version}</version>
     </dependency>
 

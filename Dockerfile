@@ -4,27 +4,27 @@ FROM openjdk:11
 RUN apt-get update
 RUN apt-get install -y maven
 
-WORKDIR /dep
+WORKDIR /deps/core
 
-ADD bd1-todo/pom.xml /dep/pom.xml
+ADD bd1-todo-core/pom.xml /deps/core/pom.xml
 RUN ["mvn", "dependency:resolve"]
 RUN ["mvn", "verify"]
 
 # Adding source, compile and package into a fat jar
-ADD bd1-todo/src /dep/src
+ADD bd1-todo-core/src /deps/core/src
 RUN ["mvn", "install"]
 
 
 
-WORKDIR /code
+WORKDIR /app
 
 # Prepare by downloading dependencies
-ADD bd1-todo-api/pom.xml /code/pom.xml
+ADD bd1-todo-api/pom.xml /app/pom.xml
 RUN ["mvn", "dependency:resolve"]
 RUN ["mvn", "verify"]
 
 # Adding source, compile and package into a fat jar
-ADD bd1-todo-api/src /code/src
+ADD bd1-todo-api/src /app/src
 RUN ["mvn", "package"]
 
 EXPOSE 4567

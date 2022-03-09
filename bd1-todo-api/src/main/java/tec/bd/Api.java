@@ -1,6 +1,7 @@
 package tec.bd;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tec.bd.controller.TodoController;
@@ -16,7 +17,9 @@ public class Api
     public static void main( String[] args )
     {
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .create();
 
         var appContext = ApplicationContext.init();
         var todoController = new TodoController(appContext.getTodo());

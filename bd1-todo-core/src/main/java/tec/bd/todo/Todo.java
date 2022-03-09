@@ -2,6 +2,7 @@ package tec.bd.todo;
 
 import tec.bd.todo.repository.TodoRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +29,10 @@ public class Todo {
 
     public TodoRecord add(TodoRecord record) {
         Objects.requireNonNull(record);
+        // Si el titulo es nulo, devolver exception
+        if(null == record.getStartDate()) {
+            record.setStartDate(new Date());
+        }
         record.setStatus(Status.NEW);
         return this.todoRepository.save(record);
     }
