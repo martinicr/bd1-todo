@@ -3,6 +3,7 @@ package tec.bd.todo;
 import tec.bd.todo.repository.TodoRepository;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Todo {
 
@@ -26,7 +27,8 @@ public class Todo {
     }
 
     public TodoRecord add(TodoRecord record) {
-        // TODO: validar si el TodoRecord es valido
+        Objects.requireNonNull(record);
+        record.setStatus(Status.NEW);
         return this.todoRepository.save(record);
     }
 

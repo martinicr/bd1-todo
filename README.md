@@ -24,3 +24,11 @@ mvn clean install -Dmaven.test.skip=true
 # En este se ignoran los pasos relacionados de las pruebas. 
 ```
 
+Proyecto en .Net
+
+```bash
+dotnet new classlib -n BD1.Todo.API.Client -lang "C#"
+
+dotnet new xunit -n BD1.Todo.API.Client.UnitTest -lang "C#"
+```
+
