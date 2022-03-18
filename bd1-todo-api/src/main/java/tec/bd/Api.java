@@ -27,6 +27,8 @@ public class Api
             get("", todoController::getAllTodos, gson::toJson);
             get("/", todoController::getAllTodos, gson::toJson);
 
+            get("/status/:todo-status", todoController::getTodosByStatus, gson::toJson);
+
             get("/:todo-id", todoController::getTodo, gson::toJson);
 
             post("", "application/json", (request, response) -> todoController.createTodoRecord(request, response), gson::toJson);

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import spark.Request;
 import spark.Response;
 import tec.bd.ApplicationContext;
+import tec.bd.todo.Status;
 import tec.bd.todo.Todo;
 import tec.bd.todo.TodoRecord;
 
@@ -39,6 +40,20 @@ public class TodoController {
         }
         response.header("Content-Type", "application/json");
         return todoRecord;
+    }
+
+    public List<TodoRecord> getTodosByStatus(Request request, Response response) {
+
+        var status = request.params("todo-status");
+        // TODO: Si el status es nulo lanzar exception o devolver 404
+        var todoStatus = Status.valueOf(status.toUpperCase());
+
+        var todoRecords = this.todo.getAll(todoStatus);
+        if(todoRecords.isEmpty()) {
+            response.status(404);
+        }
+        response.header("Content-Type", "application/json");
+        return todoRecords;
     }
 
     public TodoRecord createTodoRecord(Request request, Response response) {
