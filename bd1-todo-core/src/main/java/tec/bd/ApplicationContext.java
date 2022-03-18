@@ -4,7 +4,6 @@ import tec.bd.todo.Todo;
 import tec.bd.todo.TodoRecord;
 import tec.bd.todo.repository.TodoRepository;
 import tec.bd.todo.repository.TodoRepositoryListImpl;
-import tec.bd.todo.repository.TodoRepositoryMySqlImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +12,7 @@ public class ApplicationContext {
 
 
     private static List<TodoRecord> todoRecordList = new ArrayList<>();
-    private TodoRepository todoRepositoryListImpl;
-
-    private TodoRepository todoRepositoryMySqlImpl;
+    private TodoRepository todoRepository;
 
     private Todo todo;
 
@@ -24,20 +21,22 @@ public class ApplicationContext {
     }
 
     public static ApplicationContext init() {
+        return init(null);
+    }
 
+    public static ApplicationContext init(TodoRepository todoRepository) {
         var appContext = new ApplicationContext();
-        appContext.todoRepositoryListImpl = initTodoRepositoryListImpl();
-        appContext.todoRepositoryMySqlImpl = initTodoRepositoryMySqlImpl();
-        appContext.todo = initTodo(appContext.todoRepositoryListImpl);
+        initTodoRepository(appContext, todoRepository);
+        appContext.todo = initTodo(appContext.todoRepository);
         return appContext;
     }
 
-    private static TodoRepository initTodoRepositoryListImpl() {
-        return new TodoRepositoryListImpl(todoRecordList);
-    }
-
-    private static TodoRepository initTodoRepositoryMySqlImpl() {
-        return new TodoRepositoryMySqlImpl();
+    private static void initTodoRepository(ApplicationContext appContext, TodoRepository todoRepository) {
+        if(null != todoRepository) {
+            appContext.todoRepository = todoRepository;
+        } else {
+            appContext.todoRepository = new TodoRepositoryListImpl(todoRecordList);
+        }
     }
 
     private static Todo initTodo(TodoRepository todoRepository) {

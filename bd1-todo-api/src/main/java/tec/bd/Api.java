@@ -1,10 +1,8 @@
 package tec.bd;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tec.bd.controller.TodoController;
 
 import java.util.Map;
 
@@ -17,12 +15,10 @@ public class Api
     public static void main( String[] args )
     {
 
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                .create();
+        var webAppContext = WebApplicationContext.init();
+        Gson gson = webAppContext.getGson();
+        var todoController = webAppContext.getTodoController();
 
-        var appContext = ApplicationContext.init();
-        var todoController = new TodoController(appContext.getTodo());
 
         options("/", (request, response) -> Map.of("message", "TODOS API V1"), gson::toJson);
 
