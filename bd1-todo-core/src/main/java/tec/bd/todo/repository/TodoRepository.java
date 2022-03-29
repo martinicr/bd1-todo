@@ -15,6 +15,8 @@ public interface TodoRepository {
 
     TodoRecord save(TodoRecord todoRecord);
 
-    void remove(TodoRecord todoRecord);
+    void remove(String id);
+
+    TodoRecord update(TodoRecord todoRecord);
 
 }

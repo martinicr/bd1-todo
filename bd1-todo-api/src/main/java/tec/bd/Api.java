@@ -19,8 +19,14 @@ public class Api
         Gson gson = webAppContext.getGson();
         var todoController = webAppContext.getTodoController();
 
-
-        options("/", (request, response) -> Map.of("message", "TODOS API V1"), gson::toJson);
+        // TODO: Agregar todos los URLs que se usan en el API
+        options("/", (request, response) -> {
+                response.header("Content-Type", "application/json");
+                return Map.of(
+                        "message", "TODOS API V1",
+                        "find-all", "/api/v1/todos",
+                        "find-by-status", "/api/v1/todos/{status}");
+        }, gson::toJson);
 
         path("/api/v1/todos", () -> {
             before("/*", (q, a) -> LOG.info("Received api call"));
@@ -29,13 +35,20 @@ public class Api
 
             get("/status/:todo-status", todoController::getTodosByStatus, gson::toJson);
 
+            get("/title", todoController::searchInTitle, gson::toJson);
+
+            get("/startDate", todoController::startDateRange, gson::toJson);
+
             get("/:todo-id", todoController::getTodo, gson::toJson);
 
+            // Create
             post("", "application/json", (request, response) -> todoController.createTodoRecord(request, response), gson::toJson);
 
-//            delete("", "application/json", (request, response) -> todoController.createTodoRecord(request, response), gson::toJson);
-//
-//            put("", "application/json", (request, response) -> todoController.createTodoRecord(request, response), gson::toJson);
+            // Delete
+            delete("/:todo-id", todoController::deleteTodoRecord, gson::toJson);
+
+             // Update
+            put("", "application/json", todoController::updatedTodoRecord, gson::toJson);
 
         });
 

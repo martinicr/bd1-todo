@@ -43,7 +43,12 @@ public class TodoRepositoryListImpl implements TodoRepository {
     }
 
     @Override
-    public void remove(TodoRecord todoRecord) {
+    public void remove(String id) {
 
+    }
+
+    @Override
+    public TodoRecord update(TodoRecord todoRecord) {
+        return null;
     }
 }
