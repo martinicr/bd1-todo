@@ -2,6 +2,7 @@ package tec.bd.repository.mysql;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import tec.bd.todo.repository.TodoRepository;
 import tec.bd.todo.*;
@@ -73,6 +74,16 @@ public class TodoRepositoryMySqlImpl extends BaseRepository<TodoRecord> implemen
 
     @Override
     public TodoRecord update(TodoRecord todoRecord) {
+        return null;
+    }
+
+    @Override
+    public List<TodoRecord> findByPatternInTitle(String textToSearch) {
+        return null;
+    }
+
+    @Override
+    public List<TodoRecord> findByBetweenStartDates(Date startDate, Date endDate) {
         return null;
     }
 

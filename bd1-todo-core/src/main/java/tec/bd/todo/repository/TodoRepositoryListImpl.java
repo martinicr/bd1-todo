@@ -3,6 +3,7 @@ package tec.bd.todo.repository;
 import tec.bd.todo.Status;
 import tec.bd.todo.TodoRecord;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -49,6 +50,16 @@ public class TodoRepositoryListImpl implements TodoRepository {
 
     @Override
     public TodoRecord update(TodoRecord todoRecord) {
+        return null;
+    }
+
+    @Override
+    public List<TodoRecord> findByPatternInTitle(String textToSearch) {
+        return null;
+    }
+
+    @Override
+    public List<TodoRecord> findByBetweenStartDates(Date startDate, Date endDate) {
         return null;
     }
 }
