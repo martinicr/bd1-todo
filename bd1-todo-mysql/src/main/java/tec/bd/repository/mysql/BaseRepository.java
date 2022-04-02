@@ -31,6 +31,9 @@ public abstract class BaseRepository<T> {
     // TODO: Crear metodo execute(String sqlQuery)
 
     // TODO: Crear metodo execute(PreparedStatement stmt)
+    protected boolean execute(PreparedStatement stmt) throws SQLException {
+        return stmt.execute();
+    }
 
 
 

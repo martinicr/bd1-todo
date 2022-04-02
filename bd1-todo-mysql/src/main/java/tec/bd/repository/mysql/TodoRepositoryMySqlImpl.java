@@ -12,6 +12,11 @@ public class TodoRepositoryMySqlImpl extends BaseRepository<TodoRecord> implemen
 
     private final static String SELECT_ALL_TODOS = "select tid, title, description, state, startdate, enddate from todorecord";
     private final static String SELECT_BY_STATUS =  "select tid, title, description, state, startdate, enddate from todorecord where state = ?";
+    private final static String DELETE_BY_ID = "delete from todorecord where tid = ?";
+    private final static String SELECT_BY_ID = "select tid, title, description, state, startdate, enddate from todorecord where tid = ?";
+    private final static String INSERT_TODO = "insert into todorecord(tid, title, description, state, startdate, enddate) values (?, ?, ?, ?, ?, ?)";
+    private final static String SELECT_BY_TEXT_IN_TITLE = "select * from todorecord where title like ?";
+
 
 
     @Override
@@ -59,6 +64,20 @@ public class TodoRepositoryMySqlImpl extends BaseRepository<TodoRecord> implemen
 
     @Override
     public TodoRecord findById(String id) {
+        try {
+            var connect = this.connect();
+            var statement = connect.prepareStatement(SELECT_BY_ID);
+            statement.setString(1, id);
+            var resultSet = this.query(statement);
+
+            if(resultSet.next()) {
+                return toEntity(resultSet);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -69,7 +88,15 @@ public class TodoRepositoryMySqlImpl extends BaseRepository<TodoRecord> implemen
 
     @Override
     public void remove(String id) {
-
+        try {
+            var connect = this.connect();
+            var statement = connect.prepareStatement(DELETE_BY_ID);
+            statement.setString(1, id);
+            var actual = this.execute(statement);
+            System.out.println("Actual: " + actual);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
