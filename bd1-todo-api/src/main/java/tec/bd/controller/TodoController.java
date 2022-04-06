@@ -26,7 +26,7 @@ public class TodoController {
     }
 
     public List<TodoRecord> getAllTodos(Request request, Response response) {
-        var todos = this.todo.getAll() ;
+        var todos = this.todo.getAll();
         if(todos.isEmpty()) {
             response.status(204);
         }
@@ -66,7 +66,7 @@ public class TodoController {
         var todoRecord = GSON.fromJson(request.body(), TodoRecord.class);
         //TODO: si hay una exception capturar y retornar 500
 
-        var newTodo = this.todo.add(todoRecord);
+        var newTodo = this.todo.addTodoRecord(todoRecord);
 
         response.header("Content-Type", "application/json");
         response.header("Location", "/todos/" + newTodo.getId());
@@ -80,7 +80,7 @@ public class TodoController {
         // TODO: Si el todoId es nulo lanzar exception o devolver 404
 
         // TODO: poner try/catch aqui porque si el borrado falla no deberia retornar 200-OK
-        this.todo.delete(todoId);
+        this.todo.deleteTodoRecord(todoId);
         response.status(200);
         return new Message(200, "OK");
     }
@@ -99,16 +99,18 @@ public class TodoController {
 
     }
 
-    public List<Todo> searchInTitle(Request request, Response response) {
+    public List<TodoRecord> searchInTitle(Request request, Response response) {
 
         var textToSearch = request.queryParams("q");
 
         System.out.println(textToSearch);
 
-        return Collections.emptyList();
+        var result = this.todo.searchInTitle(textToSearch);
+
+        return result;
     }
 
-    public List<Todo> startDateRange(Request request, Response response) {
+    public List<TodoRecord> startDateRange(Request request, Response response) {
         var start = request.queryParams("start");
         var end = request.queryParams("end");
 
